@@ -20,7 +20,7 @@ const Layanan = () => {
       </TouchableOpacity>
 
       <TouchableOpacity >
-        <Link href="/lomba">
+        <Link href="/tb">
           <View style={{ alignItems: 'center' }}>
             <Ionicons name="people-circle-outline" size={40} color="black" />
             <Heading mb="$10">Tukang Borongan</Heading>
@@ -29,7 +29,7 @@ const Layanan = () => {
       </TouchableOpacity>
 
       <TouchableOpacity >
-        <Link href="/lomba">
+        <Link href="/pkul">
           <View style={{ alignItems: 'center' }}>
             <Ionicons name="hammer-outline" size={40} color="black" />
             <Heading mb="$10">Panggilan Kuli</Heading>
@@ -38,7 +38,7 @@ const Layanan = () => {
       </TouchableOpacity>
 
       <TouchableOpacity >
-        <Link href="/lomba">
+        <Link href="/pm">
           <View style={{ alignItems: 'center' }}>
             <Ionicons name="body-outline" size={40} color="black" />
             <Heading mb="$10">Panggilan Mandor</Heading>
