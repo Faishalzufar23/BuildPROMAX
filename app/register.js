@@ -1,5 +1,5 @@
 import { Button, Center, Box, VStack, Heading, Text, Input, InputField, ButtonText, 
-    Icon, ArrowLeftIcon } from '@gluestack-ui/themed';
+    Icon, ArrowLeftIcon, Link } from '@gluestack-ui/themed';
 
 const Register = () => {
     return (
@@ -55,10 +55,12 @@ const Register = () => {
                     mr='$1'
                     as={ArrowLeftIcon}
                   />
+                  <Link href="/login">
                   <ButtonText
                   >
                     Back to login
                   </ButtonText>
+                  </Link>
                 </Button>
               </Box>
             </VStack>

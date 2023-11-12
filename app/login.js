@@ -1,5 +1,5 @@
 import { Heading, FormControl, VStack, Text, Input, InputField, InputSlot, InputIcon, 
-    ButtonText, showPassword, handleState, EyeIcon, EyeOffIcon, Button, Box, setShowModal, 
+    ButtonText, showPassword, handleState, EyeIcon, EyeOffIcon, EyeOnIcon, Button, Box, setShowModal, 
     ButtonIcon, } from "@gluestack-ui/themed";
 import {Link} from "expo-router"
   
