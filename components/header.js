@@ -3,6 +3,7 @@ import { Box, Image, HStack, Heading, TooltipContent, Tooltip} from "@gluestack-
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Pressable, StatusBar } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { Link } from "expo-router";
 
 
 const Header = ({ title, withBack = false, withClose = false }) => {
@@ -44,7 +45,8 @@ const Header = ({ title, withBack = false, withClose = false }) => {
               trigger={() => {
                 return (
                   <Pressable>
-                  <Box>                   
+                  <Box>
+                    <Link href={"/login"}>                  
                     <Image
                     source={require("../assets/log.png")}
                     w="$12"
@@ -53,6 +55,7 @@ const Header = ({ title, withBack = false, withClose = false }) => {
                     mr={"$3"}
                     role="img"
                   />
+                  </Link> 
                   </Box>
                   </Pressable>
                 );

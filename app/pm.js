@@ -32,7 +32,7 @@ import { Link } from "expo-router";
 import { Svg } from 'react-native-svg';
 
 
-const Pk = () => {
+const Pm = () => {
   return (
     <>
       
@@ -44,7 +44,7 @@ const Pk = () => {
        alt="p"
        role="img">
       </Image>
-        <Heading mb="$5">Panggilan Tukang</Heading>
+        <Heading mb="$5">Panggilan Mandor</Heading>
 
         <Box h="$32" w="$72">
           <FormControl mb="$2" size="md" isDisabled={false} isInvalid={false} isReadOnly={false} isRequired={true} >
@@ -101,7 +101,7 @@ const Pk = () => {
             <SelectDragIndicatorWrapper>
             <SelectDragIndicator />
             </SelectDragIndicatorWrapper>
-            <SelectItem label="1 Tukang" value="India" />
+            <SelectItem label="India" value="India" />
             <SelectItem label="Sri Lanka" value="Sri Lanka" />
             <SelectItem label="Uganda" value="Uganda" />
             <SelectItem label="Japan" value="Japan" />
@@ -123,4 +123,4 @@ const Pk = () => {
   );
 };
 
-export default Pk;
+export default Pm;

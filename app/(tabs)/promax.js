@@ -1,15 +1,15 @@
 import { Center, Heading } from "@gluestack-ui/themed";
 import { Header } from "../../components";
 
-const Video = () => {
+const Promax = () => {
   return (
     <>
-      <Header title={"Video"} />
+      <Header title={"Promax"} />
       <Center flex={1}>
-        <Heading>Video</Heading>
+        <Heading>Promax</Heading>
       </Center>
     </>
   );
 };
 
-export default Video;
+export default Promax;

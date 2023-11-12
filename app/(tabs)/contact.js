@@ -1,7 +1,7 @@
 import { Center, Heading } from "@gluestack-ui/themed";
 import { Header } from "../../components";
 
-const Profile = () => {
+const Contact = () => {
   return (
     <>
       <Header title={"Contact"} />
@@ -12,4 +12,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Contact;
