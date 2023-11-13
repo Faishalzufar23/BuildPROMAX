@@ -46,7 +46,7 @@ return (
      role="img">
     </Image> */}
     <Ionicons name="call-outline" size={40} color="black" />
-      <Heading mb="$5">Contact Us</Heading>
+      <Heading mb="$5" textAlign="center" fontSize={"30"}>Contact Us</Heading>
 
       <Box h="$32" w="$72">
         <FormControl mb="$2" size="md" isDisabled={false} isInvalid={false} isReadOnly={false} isRequired={true} >

@@ -20,6 +20,7 @@ const Header = ({ title, withBack = false, withClose = false }) => {
               <>
                 <Image
                   source={require("../assets/logo.jpeg")}
+                  borderRadius={30}
                   w="$12"
                   h="$12"
                   alt="CNN Logo"

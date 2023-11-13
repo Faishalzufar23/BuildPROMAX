@@ -84,62 +84,7 @@ const Tukang = () => {
 
           </HStack>
         </Box>
-        <Box>
-          <HStack>
-            <Image
-            alignItems="center"
-            size="xl"
-            borderRadius="$none"
-            source={require("../../assets/promax.png")}
-            alt="p"
-            role="img">
-            </Image>
-            <Heading>Firli Juan Sandi</Heading>
-
-          </HStack>
-        </Box>
-        <Box>
-          <HStack>
-            <Image
-            alignItems="center"
-            size="xl"
-            borderRadius="$none"
-            source={require("../../assets/promax.png")}
-            alt="p"
-            role="img">
-            </Image>
-            <Heading>Firli Juan Sandi</Heading>
-
-          </HStack>
-        </Box>
-        <Box>
-          <HStack>
-            <Image
-            alignItems="center"
-            size="xl"
-            borderRadius="$none"
-            source={require("../../assets/promax.png")}
-            alt="p"
-            role="img">
-            </Image>
-            <Heading>Firli Juan Sandi</Heading>
-
-          </HStack>
-        </Box>
-        <Box>
-          <HStack>
-            <Image
-            alignItems="center"
-            size="xl"
-            borderRadius="$none"
-            source={require("../../assets/promax.png")}
-            alt="p"
-            role="img">
-            </Image>
-            <Heading>Firli Juan Sandi</Heading>
-
-          </HStack>
-        </Box>
+        
         </ScrollView>
       </Center>
     </>
