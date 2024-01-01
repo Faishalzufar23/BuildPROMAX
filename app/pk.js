@@ -1,187 +1,183 @@
-import React, { useState, useEffect } from "react";
-import {
-  Box,
+import React, {useState} from "react";
+import { Box, 
+  Center, 
+  Heading, 
   FormControl,
-  HStack,
-  VStack,
-  Modal,
-  ModalBackdrop,
-  ModalBody,
-  FormControlLabel,
-  Text,
+  FormControlLabel, 
+  FormControlLabelText, 
+  Input, 
   InputField,
-  Input as GlueInput,
-  Pressable,
-  Heading,
-  ModalHeader,
-  ModalContent,
-  ModalFooter,
-  Alert,
-  AlertIcon,
-  AlertText,
-  Center,
-  ScrollView,
-} from "@gluestack-ui/themed";
-import { Button, Input, Pilihan } from "../components";
-import { addNote, getNote } from "../actions/AuthAction";
+  FormControlHelper,
+  FormControlHelperText, 
+  FormControlError,
+  FormControlErrorIcon,
+  AlertCircleIcon,
+  FormControlErrorText,
+  Select,
+  SelectTrigger,
+  SelectInput,
+  ChevronDownIcon,
+  Icon,
+  SelectBackdrop,
+  SelectPortal,
+  SelectDragIndicator,
+  SelectDragIndicatorWrapper,
+  SelectItem,
+  SelectContent,
+  SelectIcon,
+  Textarea,
+  TextareaInput,
+  Button,
+  Image} from "@gluestack-ui/themed";
+import {Text, Alert} from "react-native";
+import { sendFormData } from "../actions/AuthAction";
 
-const Add = ({ navigation }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [status, setStatus] = useState("");
-  const [category, setCategory] = useState("");
-  const [categoryUser, setCategoryUser] = useState([]);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [newCategory, setNewCategory] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
 
-  const toggleModal = () => {
-    setIsModalVisible(!isModalVisible);
+const Pk = () => {
+  const [formValues, setFormValues] = useState({
+    alamat: "",
+    nomorTelpon: "",
+    layanan: "",
+    detailPesanan: "",
+  });
+
+  const handleInputChange = (fieldName, value) => {
+    setFormValues({
+      ...formValues,
+      [fieldName]: value,
+    });
   };
 
-  const toggleAlert = (message) => {
-    setShowAlert(!showAlert);
-    setAlertMessage(message);
+  const handleSelectChange = (value) => {
+    setFormValues({
+      ...formValues,
+      layanan: value,
+    });
   };
 
-  const ubahStatus = (status) => {
-    setStatus(status);
-  };
+  const handleSubmission = async () => {
+    try {
+      // Kirim data ke Firebase Realtime Database menggunakan fungsi baru
+      await sendFormData(formValues);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const notes = await getNote();
-      const categories = notes.map((note) => note.category);
-      const uniqueCategories = categories.filter((value, index, self) => {
-        return self.indexOf(value) === index;
-      });
-      setCategoryUser(uniqueCategories);
-    };
-
-    const unsubscribe = navigation.addListener("focus", fetchData);
-
-    return () => {
-      unsubscribe();
-    };
-  }, [navigation]);
-
-  const onAddNote = async () => {
-    if (title && content && status && category) {
-      const data = {
-        title: title,
-        content: content,
-        status: status,
-        category: category,
-      };
-
-      console.log(data);
-      try {
-        const user = await addNote(data);
-        navigation.replace("MainApp");
-      } catch (error) {
-        console.log("Error", error.message);
-        toggleAlert(error.message);
-      }
-    } else {
-      console.log("Error", "Data tidak lengkap");
-      toggleAlert("Data tidak lengkap");
-    }
-  };
-
-  const handleAddCategory = () => {
-    if (newCategory.trim() !== "") {
-      setCategoryUser((prevCategories) => [...prevCategories, newCategory]);
-      setNewCategory("");
-      setIsModalVisible(false);
+      // Tampilkan pemberitahuan setelah mengklik tombol "Submit"
+      Alert.alert(
+        "Pemberitahuan",
+        "Data berhasil dikirim dan disimpan di Firebase!",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false }
+      );
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
   return (
-    <ScrollView>
-      <Box flex={1} backgroundColor="$white">
-        <Box shadowColor="$black" shadowOffset={{ width: 0, height: 2 }} shadowOpacity={"$25"} shadowRadius={"$3.5"} elevation={"$5"} backgroundColor="$white" borderRadius={"$md"} mt={"$8"} mx={"$3"} px={"$3"} pt={"$2"}>
-          <Heading size="2xl" color="$black">
-            Add New Task!
-          </Heading>
-          <Text size="sm" color="$black" my={"$1"}>
-            Add your new task here!
-          </Text>
-          <FormControl>
-            <Input label={"Title"} width={"$full"} height={"$10"} onChangeText={(title) => setTitle(title)} />
-            <Input textarea={true} label="Content" width={"$full"} height={"$32"} onChangeText={(content) => setContent(content)} />
-            <Pilihan label="Status" selectedValue={status} onValueChange={(status) => ubahStatus(status)} />
-            <Pilihan label="Category" selectedValue={category} datas={categoryUser} onValueChange={(selectedCategory) => setCategory(selectedCategory)} />
-            <Button type="text" title="Add New Category" onPress={toggleModal} padding={10} />
-            <Button
-              type="text"
-              title="Save"
-              padding={10}
-              onPress={() => {
-                onAddNote();
-              }}
-            />
+    <>
+      <Center flex={0.6}>
+        <Image
+          size="xl"
+          borderRadius="$none"
+          source={require("../assets/promax.png")}
+          alt="p"
+          role="img"
+        />
+        <Heading mb="$5">Panggilan Tukang</Heading>
+
+        <Box h="$32" w="$72">
+          <FormControl mb="$2" size="md" isRequired={true}>
+            <FormControlLabel mb="$1">
+              <FormControlLabelText>Alamat</FormControlLabelText>
+            </FormControlLabel>
+            <Input>
+              <InputField
+                type="text"
+                placeholder="Alamat Pembangunan"
+                value={formValues.alamat}
+                onChangeText={(text) => handleInputChange("alamat", text)}
+              />
+            </Input>
+            <FormControlError>
+              <FormControlErrorIcon
+                as={AlertCircleIcon}
+              />
+              <FormControlErrorText>
+                Setidaknya inputkan minimal 6.
+              </FormControlErrorText>
+            </FormControlError>
           </FormControl>
+
+          <FormControl mb="$5" size="md" isRequired={true}>
+            <FormControlLabel mb="$1">
+              <FormControlLabelText>Nomor Telpon</FormControlLabelText>
+            </FormControlLabel>
+            <Input>
+              <InputField
+                type="text"
+                placeholder="Nomor Telpon pengguna"
+                value={formValues.nomorTelpon}
+                onChangeText={(text) => handleInputChange("nomorTelpon", text)}
+              />
+            </Input>
+          </FormControl>
+
+          <FormControl mb="$5" size="md" isRequired={true}>
+            <FormControlLabel mb="$1">
+              <FormControlLabelText>Pilih Layanan</FormControlLabelText>
+            </FormControlLabel>
+            <Select
+              onValueChange={(value) => handleSelectChange(value)}
+              value={formValues.layanan}
+            >
+              <SelectTrigger>
+                <SelectInput placeholder="Pilih Layanan" />
+                <SelectIcon mr="$3">
+                  <Icon as={ChevronDownIcon} />
+                </SelectIcon>
+              </SelectTrigger>
+
+              <SelectPortal>
+                <SelectBackdrop />
+                <SelectContent>
+                  <SelectDragIndicatorWrapper>
+                    <SelectDragIndicator />
+                  </SelectDragIndicatorWrapper>
+                  <SelectItem label="Borongan" value="Borongan" />
+                  <SelectItem label="2-3" value="2-3" />
+                  <SelectItem label="1" value="1" />
+                  <SelectItem label="Hanya beli bahan bangunan" value="Hanya beli bahan bangunan" />
+                </SelectContent>
+              </SelectPortal>
+            </Select>
+          </FormControl>
+
+          <Text size={40}>Beri Detail Pesanan Layanan</Text>
+          <FormControl mb="$5" size="md">
+            <Textarea
+              isReadOnly={false}
+              isInvalid={false}
+              isDisabled={false}
+              w="$64"
+            >
+              <TextareaInput
+                placeholder="Your text goes here..."
+                value={formValues.detailPesanan}
+                onChangeText={(text) => handleInputChange("detailPesanan", text)}
+              />
+            </Textarea>
+          </FormControl>
+
+          <Button
+            colorScheme="primary"
+            onPress={() => handleSubmission()}
+            mt="$11"
+          >
+            <Text>Submit</Text>
+          </Button>
         </Box>
-
-        <Modal isOpen={isModalVisible} onClose={toggleModal} finalFocusRef={this.btnRef}>
-          <ModalBackdrop />
-          <ModalContent backgroundColor="$white" padding={"$2"} borderRadius={"$lg"}>
-            <ModalHeader>
-              <VStack space="sm">
-                <Heading size="lg">Add New Category</Heading>
-                <Text size="sm">Having a lot of task must be needing categories too!</Text>
-              </VStack>
-            </ModalHeader>
-            <ModalBody>
-              <GlueInput>
-                <InputField role="form" placeholder="Category Name" value={newCategory} onChangeText={(text) => setNewCategory(text)} />
-              </GlueInput>
-            </ModalBody>
-            <ModalFooter>
-              <Box flex={1} flexDirection="column" justifyContent="space-evenly">
-                <Pressable
-                  backgroundColor="$blue500"
-                  p={"$2"}
-                  borderRadius={"$sm"}
-                  alignItems="center"
-                  onPress={handleAddCategory} // Trigger category addition
-                >
-                  <Text color="$white" fontWeight="$bold">
-                    Add
-                  </Text>
-                </Pressable>
-
-                <Pressable
-                  backgroundColor="$red700"
-                  p={"$2"}
-                  mt={"$2"}
-                  borderRadius={"$sm"}
-                  alignItems="center"
-                  onPress={toggleModal} // Close modal
-                >
-                  <Text color="$white" fontWeight="$bold">
-                    Cancel
-                  </Text>
-                </Pressable>
-              </Box>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-
-        {/* show Alert */}
-        {showAlert && (
-          <Modal isOpen={showAlert} onClose={toggleAlert}>
-            <ModalBackdrop />
-            <Alert mx="$4" action="error" variant="solid">
-              <AlertText fontWeight="$bold">Error!</AlertText>
-              <AlertText>{alertMessage}</AlertText>
-            </Alert>
-          </Modal>
-        )}
-      </Box>
-    </ScrollView>
+      </Center>
+    </>
   );
 };
 
-export default Add;
+export default Pk;

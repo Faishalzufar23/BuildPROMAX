@@ -26,13 +26,14 @@ import { Box,
     SelectIcon,
     Textarea,
     TextareaInput,
+    Button,
     Image} from "@gluestack-ui/themed";
 import {Text} from "react-native";
 import { Link } from "expo-router";
 import { Svg } from 'react-native-svg';
 
 
-const Pkul = () => {
+const Pm = () => {
   return (
     <>
       
@@ -44,7 +45,7 @@ const Pkul = () => {
        alt="p"
        role="img">
       </Image>
-        <Heading mb="$5">Panggilan Kuli</Heading>
+        <Heading mb="$5">Panggilan Mandor</Heading>
 
         <Box h="$32" w="$72">
           <FormControl mb="$2" size="md" isDisabled={false} isInvalid={false} isReadOnly={false} isRequired={true} >
@@ -115,7 +116,9 @@ const Pkul = () => {
             placeholder="Your text goes here..."
           />
         </Textarea>
-      
+        <Button colorScheme="primary" onPress={() => handleSubmission()} mt="$11">
+          <Text>Submit</Text>
+        </Button>
         
         </Box>
       </Center>
@@ -123,4 +126,4 @@ const Pkul = () => {
   );
 };
 
-export default Pkul;
+export default Pm;

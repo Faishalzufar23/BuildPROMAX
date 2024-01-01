@@ -17,14 +17,14 @@ const TabsLayout = () => {
             case "layanan":
               iconName = "construct-outline";
               break;
-            case "promax":
-              iconName = "id-card-outline";
+            case "pesanan":
+              iconName = "list-outline";
               break;
             case "tukang":
-              iconName = "person-circle-outline";
+              iconName = "hammer-outline";
               break;
             case "profile":
-              iconName = "call-outline";
+              iconName = "person-circle-outline";
               break;
           }
           return (
@@ -50,9 +50,9 @@ const TabsLayout = () => {
     >
       <Tabs.Screen name="home" options={{ title: "Home", ...noHead }} />
       <Tabs.Screen name="layanan" options={{ title: "Layanan", ...noHead }} />
-      <Tabs.Screen name="promax" options={{ title: "Promax", ...noHead }} />
+      <Tabs.Screen name="pesanan" options={{ title: "Pesanan", ...noHead }} />
       <Tabs.Screen name="tukang" options={{ title: "Tukang", ...noHead }} />
-      <Tabs.Screen name="contact" options={{ title: "Profile", ...noHead }} />
+      <Tabs.Screen name="profile" options={{ title: "Profile", ...noHead }} />
     </Tabs>
   );
 };

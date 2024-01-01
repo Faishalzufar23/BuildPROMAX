@@ -2,6 +2,32 @@ import { Alert } from "react-native";
 import FIREBASE from "../config/FIREBASE";
 import { clearStorage, getData, storeData } from "../utils/localStorage";
 
+
+export const sendFormData = async (data) => {
+  try {
+    const userData = await getData("user");
+
+    if (userData) {
+      // Tambah note sesuai uid
+      const dataBaru = {
+        ...data,
+        uid: userData.uid,
+      };
+
+      await FIREBASE.database()
+        .ref("pesanan/" + userData.uid)
+        .push(dataBaru);
+
+      console.log("Note added successfully");
+    } else {
+      Alert.alert("Error", "Login Terlebih Dahulu");
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 export const registerUser = async (data, password) => {
   try {
     const success = await FIREBASE.auth().createUserWithEmailAndPassword(data.email, password);
@@ -81,7 +107,7 @@ export const addNote = async (data) => {
 
 export const getNote = async () => {
   const userData = await getData("user");
-  const notesRef = FIREBASE.database().ref("notes/" + userData.uid);
+  const notesRef = FIREBASE.database().ref("pesanan/" + userData.uid);
 
   return notesRef
     .once("value")

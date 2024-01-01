@@ -26,6 +26,7 @@ import { Box,
     SelectIcon,
     Textarea,
     TextareaInput,
+    Button,
     Image} from "@gluestack-ui/themed";
 import {Text} from "react-native";
 import { Link } from "expo-router";
@@ -115,7 +116,9 @@ const tb = () => {
             placeholder="Your text goes here..."
           />
         </Textarea>
-      
+        <Button colorScheme="primary" onPress={() => handleSubmission()} mt="$11">
+          <Text>Submit</Text>
+        </Button>
         
         </Box>
       </Center>
