@@ -46,16 +46,7 @@ const Header = ({ title, withBack = false, withClose = false }) => {
                 return (
                   <Pressable>
                   <Box>
-                    <Link href={"/login"}>                  
-                    <Image
-                    source={require("../assets/log.png")}
-                    w="$12"
-                    h="$12"
-                    alt="CNN Logo"
-                    mr={"$3"}
-                    role="img"
-                  />
-                  </Link> 
+                    
                   </Box>
                   </Pressable>
                 );
