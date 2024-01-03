@@ -56,6 +56,16 @@ const Pk = () => {
   };
 
   const handleSubmission = async () => {
+    // Validasi apakah semua field telah diisi
+  if (!formValues.alamat || !formValues.nomorTelpon || !formValues.layanan || !formValues.detailPesanan) {
+    Alert.alert(
+      "Peringatan",
+      "Tolong isi semua data pesanan terlebih dahulu.",
+      [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+      { cancelable: false }
+    );
+    return;
+  }
     try {
       // Kirim data ke Firebase Realtime Database menggunakan fungsi baru
       await sendFormData(formValues);
@@ -63,7 +73,7 @@ const Pk = () => {
       // Tampilkan pemberitahuan setelah mengklik tombol "Submit"
       Alert.alert(
         "Pemberitahuan",
-        "Data berhasil dikirim dan disimpan di Firebase!",
+        "Berikut No Whatsapp Tukang yang bisa dihubungi  'https://whatsapp.com/'  silahkan untuk melakukan transaksi langsu pada link whatsapp tersebut",
         [{ text: "OK", onPress: () => console.log("OK Pressed") }],
         { cancelable: false }
       );
@@ -157,7 +167,7 @@ const Pk = () => {
               isReadOnly={false}
               isInvalid={false}
               isDisabled={false}
-              w="$64"
+              w="$70"
             >
               <TextareaInput
                 placeholder="Your text goes here..."

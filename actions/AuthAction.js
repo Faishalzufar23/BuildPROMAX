@@ -184,3 +184,28 @@ export const deleteNote = async (noteId) => {
     throw error;
   }
 };
+
+
+export const editProfile = async (uid, updatedData) => {
+  try {
+    const userRef = FIREBASE.database().ref(`users/${uid}`);
+    const snapshot = await userRef.once("value");
+    const existingUser = snapshot.val();
+
+    if (existingUser) {
+      const updatedUser = {
+        ...existingUser,
+        ...updatedData,
+      };
+
+      await userRef.update(updatedUser);
+      console.log("Profile updated successfully");
+      return updatedUser;
+    } else {
+      console.log("User not found");
+      return null;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
