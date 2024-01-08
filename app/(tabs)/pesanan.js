@@ -1,39 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Button, StyleSheet } from 'react-native';
-import { ScrollView} from "@gluestack-ui/themed";
+import { View, Text, FlatList, Button, StyleSheet, RefreshControl } from 'react-native';
 import { getNote, deleteNote } from '../../actions/AuthAction';
 
 const Pesanan = () => {
   const [pesanan, setPesanan] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    // Mengambil data pesanan saat komponen dipasang
     fetchData();
   }, []);
 
   const fetchData = async () => {
+    setRefreshing(true);
     try {
       const pesanan = await getNote();
       setPesanan(pesanan);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
+    setRefreshing(false);
   };
 
   const handleDelete = async (noteId) => {
     try {
       await deleteNote(noteId);
-      // Mengambil data pesanan setelah penghapusan
       fetchData();
     } catch (error) {
       console.error('Error deleting data:', error);
-      // Tambahkan penanganan kesalahan sesuai kebutuhan Anda, misalnya menampilkan pesan kesalahan kepada pengguna.
     }
   };
-  
 
   return (
-    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.title}>Daftar Pesanan</Text>
       {pesanan.length === 0 ? (
@@ -41,7 +38,7 @@ const Pesanan = () => {
       ) : (
         <FlatList
           data={pesanan}
-          keyExtractor={(item) => item.noteId}
+          keyExtractor={(item) => item.noteId.toString()}
           renderItem={({ item }) => (
             <View style={styles.itemContainer}>
               <Text style={styles.label}>Alamat:</Text>
@@ -62,10 +59,15 @@ const Pesanan = () => {
               />
             </View>
           )}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={fetchData}
+            />
+          }
         />
       )}
     </View>
-    </ScrollView>
   );
 };
 

@@ -56,15 +56,16 @@ const Pm = () => {
   };
 
   const handleSubmission = async () => {
-    if (!formValues.alamat || !formValues.nomorTelpon || !formValues.layanan || !formValues.detailPesanan) {
-      Alert.alert(
-        "Peringatan",
-        "Tolong isi semua data pesanan terlebih dahulu.",
-        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-        { cancelable: false }
-      );
-      return;
-    }
+    // Validasi apakah semua field telah diisi
+  if (!formValues.alamat || !formValues.nomorTelpon || !formValues.layanan || !formValues.detailPesanan) {
+    Alert.alert(
+      "Peringatan",
+      "Tolong isi semua data pesanan terlebih dahulu.",
+      [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+      { cancelable: false }
+    );
+    return;
+  }
     try {
       // Kirim data ke Firebase Realtime Database menggunakan fungsi baru
       await sendFormData(formValues);
@@ -126,6 +127,7 @@ const Pm = () => {
                 placeholder="Nomor Telpon pengguna"
                 value={formValues.nomorTelpon}
                 onChangeText={(text) => handleInputChange("nomorTelpon", text)}
+                keyboardType="numeric"
               />
             </Input>
           </FormControl>

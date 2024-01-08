@@ -1,68 +1,112 @@
+import React, {useState} from "react";
 import { Box, 
-    Center, 
-    Heading, 
-    FormControl,
-    FormControlLabel, 
-    FormControlLabelText, 
-    Input, 
-    InputField,
-    FormControlHelper,
-    FormControlHelperText, 
-    FormControlError,
-    FormControlErrorIcon,
-    AlertCircleIcon,
-    FormControlErrorText,
-    Select,
-    SelectTrigger,
-    SelectInput,
-    ChevronDownIcon,
-    Icon,
-    SelectBackdrop,
-    SelectPortal,
-    SelectDragIndicator,
-    SelectDragIndicatorWrapper,
-    SelectItem,
-    SelectContent,
-    SelectIcon,
-    Textarea,
-    TextareaInput,
-    Button,
-    Image} from "@gluestack-ui/themed";
-import {Text} from "react-native";
-import { Link } from "expo-router";
-import { Svg } from 'react-native-svg';
+  Center, 
+  Heading, 
+  FormControl,
+  FormControlLabel, 
+  FormControlLabelText, 
+  Input, 
+  InputField,
+  FormControlHelper,
+  FormControlHelperText, 
+  FormControlError,
+  FormControlErrorIcon,
+  AlertCircleIcon,
+  FormControlErrorText,
+  Select,
+  SelectTrigger,
+  SelectInput,
+  ChevronDownIcon,
+  Icon,
+  SelectBackdrop,
+  SelectPortal,
+  SelectDragIndicator,
+  SelectDragIndicatorWrapper,
+  SelectItem,
+  SelectContent,
+  SelectIcon,
+  Textarea,
+  TextareaInput,
+  Button,
+  Image} from "@gluestack-ui/themed";
+import {Text, Alert} from "react-native";
+import { sendFormData } from "../actions/AuthAction";
 
 
-const Pm = () => {
+const Pkul = () => {
+  const [formValues, setFormValues] = useState({
+    alamat: "",
+    nomorTelpon: "",
+    layanan: "",
+    detailPesanan: "",
+  });
+
+  const handleInputChange = (fieldName, value) => {
+    setFormValues({
+      ...formValues,
+      [fieldName]: value,
+    });
+  };
+
+  const handleSelectChange = (value) => {
+    setFormValues({
+      ...formValues,
+      layanan: value,
+    });
+  };
+
+  const handleSubmission = async () => {
+    // Validasi apakah semua field telah diisi
+  if (!formValues.alamat || !formValues.nomorTelpon || !formValues.layanan || !formValues.detailPesanan) {
+    Alert.alert(
+      "Peringatan",
+      "Tolong isi semua data pesanan terlebih dahulu.",
+      [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+      { cancelable: false }
+    );
+    return;
+  }
+    try {
+      // Kirim data ke Firebase Realtime Database menggunakan fungsi baru
+      await sendFormData(formValues);
+
+      // Tampilkan pemberitahuan setelah mengklik tombol "Submit"
+      Alert.alert(
+        "Pemberitahuan",
+        "Berikut No Whatsapp Tukang yang bisa dihubungi  'https://whatsapp.com/'  silahkan untuk melakukan transaksi langsu pada link whatsapp tersebut",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false }
+      );
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <>
-      
       <Center flex={0.6}>
-      <Image
-       size="xl"
-       borderRadius="$none"
-       source={require("../assets/promax.png")}
-       alt="p"
-       role="img">
-      </Image>
-        <Heading mb="$5">Panggilan Mandor</Heading>
+        <Image
+          size="xl"
+          borderRadius="$none"
+          source={require("../assets/promax.png")}
+          alt="p"
+          role="img"
+        />
+        <Heading mb="$5">Panggilan Kuli</Heading>
 
         <Box h="$32" w="$72">
-          <FormControl mb="$2" size="md" isDisabled={false} isInvalid={false} isReadOnly={false} isRequired={true} >
-            <FormControlLabel mb='$1'>
+          <FormControl mb="$2" size="md" isRequired={true}>
+            <FormControlLabel mb="$1">
               <FormControlLabelText>Alamat</FormControlLabelText>
             </FormControlLabel>
             <Input>
               <InputField
-                type="email"
+                type="text"
                 placeholder="Alamat Pembangunan"
+                value={formValues.alamat}
+                onChangeText={(text) => handleInputChange("alamat", text)}
               />
             </Input>
-            {/* <FormControlHelper>
-              <FormControlHelperText>
-                Minimal 6 karakter.
-              </FormControlHelperText>
-            </FormControlHelper> */}
             <FormControlError>
               <FormControlErrorIcon
                 as={AlertCircleIcon}
@@ -73,57 +117,75 @@ const Pm = () => {
             </FormControlError>
           </FormControl>
 
-          <FormControl mb="$5" size="md" isDisabled={false} isInvalid={false} isReadOnly={false} isRequired={true} >
-            <FormControlLabel mb='$1'>
+          <FormControl mb="$5" size="md" isRequired={true}>
+            <FormControlLabel mb="$1">
               <FormControlLabelText>Nomor Telpon</FormControlLabelText>
             </FormControlLabel>
             <Input>
               <InputField
-                type="email"
+                type="text"
                 placeholder="Nomor Telpon pengguna"
+                value={formValues.nomorTelpon}
+                onChangeText={(text) => handleInputChange("nomorTelpon", text)}
+                keyboardType="numeric"
               />
             </Input>
           </FormControl>
 
-          <Select mb="$5">
-            <Text>
-                Pilih Layanan
-            </Text>
-            <SelectTrigger>
-                <SelectInput placeholder="Country" />
-                    <SelectIcon mr="$3">
-                        <Icon as={ChevronDownIcon} />
-                    </SelectIcon>
-            </SelectTrigger>
-            
-            <SelectPortal>
-            <SelectBackdrop />
-            <SelectContent>
-            <SelectDragIndicatorWrapper>
-            <SelectDragIndicator />
-            </SelectDragIndicatorWrapper>
-            <SelectItem label="India" value="India" />
-            <SelectItem label="Sri Lanka" value="Sri Lanka" />
-            <SelectItem label="Uganda" value="Uganda" />
-            <SelectItem label="Japan" value="Japan" />
-            </SelectContent>
-        </SelectPortal>
-        </Select>
+          <FormControl mb="$5" size="md" isRequired={true}>
+            <FormControlLabel mb="$1">
+              <FormControlLabelText>Pilih Layanan</FormControlLabelText>
+            </FormControlLabel>
+            <Select
+              onValueChange={(value) => handleSelectChange(value)}
+              value={formValues.layanan}
+            >
+              <SelectTrigger>
+                <SelectInput placeholder="Pilih Layanan" />
+                <SelectIcon mr="$3">
+                  <Icon as={ChevronDownIcon} />
+                </SelectIcon>
+              </SelectTrigger>
 
-        <Text size={40}>Beri Detail Pesanan Layanan</Text>
-        <Textarea size="md" isReadOnly={false} isInvalid={false} isDisabled={false}  w='$64'>
-          <TextareaInput
-            placeholder="Your text goes here..."
-          />
-        </Textarea>
-        <Button colorScheme="primary" onPress={() => handleSubmission()} mt="$11">
-          <Text>Submit</Text>
-        </Button>
-        
+              <SelectPortal>
+                <SelectBackdrop />
+                <SelectContent>
+                  <SelectDragIndicatorWrapper>
+                    <SelectDragIndicator />
+                  </SelectDragIndicatorWrapper>
+                  <SelectItem label="kuli " value="Kuli " />
+                </SelectContent>
+              </SelectPortal>
+            </Select>
+          </FormControl>
+
+          <Text size={40}>Beri Detail Pesanan Layanan</Text>
+          <FormControl mb="$5" size="md">
+            <Textarea
+              isReadOnly={false}
+              isInvalid={false}
+              isDisabled={false}
+              w="$70"
+            >
+              <TextareaInput
+                placeholder="Your text goes here..."
+                value={formValues.detailPesanan}
+                onChangeText={(text) => handleInputChange("detailPesanan", text)}
+              />
+            </Textarea>
+          </FormControl>
+
+          <Button
+            colorScheme="primary"
+            onPress={() => handleSubmission()}
+            mt="$11"
+          >
+            <Text>Submit</Text>
+          </Button>
         </Box>
       </Center>
     </>
   );
 };
 
-export default Pm;
+export default Pkul;

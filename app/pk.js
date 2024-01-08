@@ -82,6 +82,7 @@ const Pk = () => {
     }
   };
 
+
   return (
     <>
       <Center flex={0.6}>
@@ -127,6 +128,7 @@ const Pk = () => {
                 placeholder="Nomor Telpon pengguna"
                 value={formValues.nomorTelpon}
                 onChangeText={(text) => handleInputChange("nomorTelpon", text)}
+                keyboardType="numeric"
               />
             </Input>
           </FormControl>
@@ -152,10 +154,15 @@ const Pk = () => {
                   <SelectDragIndicatorWrapper>
                     <SelectDragIndicator />
                   </SelectDragIndicatorWrapper>
-                  <SelectItem label="Borongan" value="Borongan" />
-                  <SelectItem label="2-3" value="2-3" />
-                  <SelectItem label="1" value="1" />
-                  <SelectItem label="Hanya beli bahan bangunan" value="Hanya beli bahan bangunan" />
+                  <SelectItem label="Tukang Listrik" value="Tukang Listrik" />
+                  <SelectItem label="Tukang Struktur" value="Tukang Struktur" />
+                  <SelectItem label="Tukang Waterproof" value="Tukang Waterproof" />
+                  <SelectItem label="Tukang Atap" value="Tukang Atap" />
+                  <SelectItem label="Tukang Batu" value="Tukang Batu" />
+                  <SelectItem label="Tukang Besi" value="Tukang Besi" />
+                  <SelectItem label="Tukang Kayu" value="Tukang Kayu" />
+                  <SelectItem label="Tukang Keramik" value="Tukang Keramik" />
+                  <SelectItem label="Tukang Las" value="Tukang Las" />
                 </SelectContent>
               </SelectPortal>
             </Select>

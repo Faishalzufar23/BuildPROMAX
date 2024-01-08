@@ -4,7 +4,7 @@
     "slug": "BuildPROMAX",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/promax.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/promax.png",
@@ -19,9 +19,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/promax.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.zufar23.BuildPROMAX"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,7 +30,14 @@
     "plugins": [
       "expo-router"
     ],
-    "scheme": "my-scheme"
+    "scheme": "my-scheme",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "ea101ffe-7d21-474c-ab13-855a80e40e54"
+      }
+    }
   }
 }
-  
