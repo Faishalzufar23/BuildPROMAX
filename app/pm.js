@@ -29,11 +29,15 @@ import { Box,
   TextareaInput,
   Button,
   Image} from "@gluestack-ui/themed";
-import {Text, Alert} from "react-native";
+import {Text, Alert, TouchableOpacity} from "react-native";
 import { sendFormData } from "../actions/AuthAction";
+import { useNavigation } from "@react-navigation/native";
 
 
 const Pm = () => {
+
+  const navigation = useNavigation();
+  
   const [formValues, setFormValues] = useState({
     alamat: "",
     nomorTelpon: "",
@@ -73,7 +77,7 @@ const Pm = () => {
       // Tampilkan pemberitahuan setelah mengklik tombol "Submit"
       Alert.alert(
         "Pemberitahuan",
-        "Berikut No Whatsapp Tukang yang bisa dihubungi  'https://whatsapp.com/'  silahkan untuk melakukan transaksi langsu pada link whatsapp tersebut",
+        "Berikut No Whatsapp Mandor yang bisa dihubungi  'https://whatsapp.com/'  silahkan untuk melakukan transaksi langsu pada link whatsapp tersebut",
         [{ text: "OK", onPress: () => console.log("OK Pressed") }],
         { cancelable: false }
       );
@@ -92,6 +96,16 @@ const Pm = () => {
           alt="p"
           role="img"
         />
+
+        <Box position="absolute" top="10" left="10">
+          <TouchableOpacity onPress={() => navigation.navigate('layanan')}>
+          <Image
+            source={require("../assets/backIcon.png")}
+            style={{ width: 34, height: 34, marginBottom:350, marginRight:300}}
+            />
+          </TouchableOpacity>
+        </Box> 
+
         <Heading mb="$5">Panggilan Mandor</Heading>
 
         <Box h="$32" w="$72">
@@ -153,10 +167,10 @@ const Pm = () => {
                   <SelectDragIndicatorWrapper>
                     <SelectDragIndicator />
                   </SelectDragIndicatorWrapper>
-                  <SelectItem label="Borongan" value="Borongan" />
-                  <SelectItem label="2-3" value="2-3" />
-                  <SelectItem label="1" value="1" />
-                  <SelectItem label="Hanya beli bahan bangunan" value="Hanya beli bahan bangunan" />
+                  <SelectItem label="Mandor Residential" value="Mandor Residential" />
+                  <SelectItem label="Mandor Rumah" value="Mandor Rumah" />
+                  <SelectItem label="Mandor Bangunan" value="Mandor Bangunan" />
+                  <SelectItem label="Mandor Proyek" value="Mandor Proyek" />
                 </SelectContent>
               </SelectPortal>
             </Select>

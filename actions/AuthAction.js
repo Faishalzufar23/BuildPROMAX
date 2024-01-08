@@ -28,6 +28,19 @@ export const sendFormData = async (data) => {
 };
 
 
+export const tambahLayanan = async (layananBaru) => {
+  try {
+    await FIREBASE.database()
+      .ref("layanan")
+      .push(layananBaru);
+
+    console.log("Layanan added successfully");
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 export const registerUser = async (data, password) => {
   try {
     const success = await FIREBASE.auth().createUserWithEmailAndPassword(data.email, password);

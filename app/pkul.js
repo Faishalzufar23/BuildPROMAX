@@ -29,11 +29,15 @@ import { Box,
   TextareaInput,
   Button,
   Image} from "@gluestack-ui/themed";
-import {Text, Alert} from "react-native";
+import {Text, Alert, TouchableOpacity} from "react-native";
 import { sendFormData } from "../actions/AuthAction";
+import { useNavigation } from "@react-navigation/native";
 
 
 const Pkul = () => {
+
+  const navigation = useNavigation();
+
   const [formValues, setFormValues] = useState({
     alamat: "",
     nomorTelpon: "",
@@ -73,7 +77,7 @@ const Pkul = () => {
       // Tampilkan pemberitahuan setelah mengklik tombol "Submit"
       Alert.alert(
         "Pemberitahuan",
-        "Berikut No Whatsapp Tukang yang bisa dihubungi  'https://whatsapp.com/'  silahkan untuk melakukan transaksi langsu pada link whatsapp tersebut",
+        "Berikut No Whatsapp Kuli yang bisa dihubungi  'https://whatsapp.com/'  silahkan untuk melakukan transaksi langsu pada link whatsapp tersebut",
         [{ text: "OK", onPress: () => console.log("OK Pressed") }],
         { cancelable: false }
       );
@@ -92,6 +96,16 @@ const Pkul = () => {
           alt="p"
           role="img"
         />
+
+        <Box position="absolute" top="10" left="10">
+          <TouchableOpacity onPress={() => navigation.navigate('layanan')}>
+          <Image
+            source={require("../assets/backIcon.png")}
+            style={{ width: 34, height: 34, marginBottom:350, marginRight:300}}
+            />
+          </TouchableOpacity>
+        </Box> 
+
         <Heading mb="$5">Panggilan Kuli</Heading>
 
         <Box h="$32" w="$72">
@@ -153,7 +167,11 @@ const Pkul = () => {
                   <SelectDragIndicatorWrapper>
                     <SelectDragIndicator />
                   </SelectDragIndicatorWrapper>
-                  <SelectItem label="kuli " value="Kuli " />
+                  <SelectItem label="kuli Struktur" value="Kuli Struktur" />
+                  <SelectItem label="kuli Rumah" value="Kuli Rumah" />
+                  <SelectItem label="kuli Bangunan" value="Kuli Bangunan" />
+                  <SelectItem label="kuli Proyek" value="Kuli Proyek" />
+                  <SelectItem label="kuli Residential" value="Kuli Residential" />
                 </SelectContent>
               </SelectPortal>
             </Select>

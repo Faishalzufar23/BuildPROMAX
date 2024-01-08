@@ -29,11 +29,14 @@ import { Box,
   TextareaInput,
   Button,
   Image} from "@gluestack-ui/themed";
-import {Text, Alert} from "react-native";
+import {Text, Alert, TouchableOpacity} from "react-native";
 import { sendFormData } from "../actions/AuthAction";
+import { useNavigation } from "@react-navigation/native";
 
 
 const Pk = () => {
+
+  const navigation = useNavigation();
   const [formValues, setFormValues] = useState({
     alamat: "",
     nomorTelpon: "",
@@ -73,7 +76,7 @@ const Pk = () => {
       // Tampilkan pemberitahuan setelah mengklik tombol "Submit"
       Alert.alert(
         "Pemberitahuan",
-        "Berikut No Whatsapp Tukang yang bisa dihubungi  'https://whatsapp.com/'  silahkan untuk melakukan transaksi langsu pada link whatsapp tersebut",
+        "Berikut No Whatsapp Tukang/Mandor/Kuli yang bisa dihubungi  'https://whatsapp.com/'  silahkan untuk melakukan transaksi langsu pada link whatsapp tersebut",
         [{ text: "OK", onPress: () => console.log("OK Pressed") }],
         { cancelable: false }
       );
@@ -92,7 +95,17 @@ const Pk = () => {
           alt="p"
           role="img"
         />
-        <Heading mb="$5">Panggilan Tukang</Heading>
+
+        <Box position="absolute" top="10" left="10">
+          <TouchableOpacity onPress={() => navigation.navigate('layanan')}>
+          <Image
+            source={require("../assets/backIcon.png")}
+            style={{ width: 34, height: 34, marginBottom:350, marginRight:300}}
+            />
+          </TouchableOpacity>
+        </Box> 
+
+        <Heading mb="$5">Panggilan Borongan</Heading>
 
         <Box h="$32" w="$72">
           <FormControl mb="$2" size="md" isRequired={true}>
@@ -153,15 +166,11 @@ const Pk = () => {
                   <SelectDragIndicatorWrapper>
                     <SelectDragIndicator />
                   </SelectDragIndicatorWrapper>
-                  <SelectItem label="Tukang Listrik" value="Tukang Listrik" />
-                  <SelectItem label="Tukang Struktur" value="Tukang Struktur" />
-                  <SelectItem label="Tukang Waterproof" value="Tukang Waterproof" />
-                  <SelectItem label="Tukang Atap" value="Tukang Atap" />
-                  <SelectItem label="Tukang Batu" value="Tukang Batu" />
-                  <SelectItem label="Tukang Besi" value="Tukang Besi" />
-                  <SelectItem label="Tukang Kayu" value="Tukang Kayu" />
-                  <SelectItem label="Tukang Keramik" value="Tukang Keramik" />
-                  <SelectItem label="Tukang Las" value="Tukang Las" />
+                  <SelectItem label="Borongan Tukang" value="Borongan Tukang" />
+                  <SelectItem label="Borongan Kuli" value="Borongan Kuli" />
+                  <SelectItem label="Borongan Rumah" value="Borongan Rumah" />
+                  <SelectItem label="Borongan Bangunan" value="Borongan Bangunan" />
+                  <SelectItem label="Borongan Proyek" value="Borongan Proyek" />
                 </SelectContent>
               </SelectPortal>
             </Select>

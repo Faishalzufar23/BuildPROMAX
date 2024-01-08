@@ -28,12 +28,16 @@ import { Box,
   Textarea,
   TextareaInput,
   Button,
-  Image} from "@gluestack-ui/themed";
-import {Text, Alert} from "react-native";
+  Image,} from "@gluestack-ui/themed";
+import {Text, Alert, TouchableOpacity} from "react-native";
 import { sendFormData } from "../actions/AuthAction";
+import { useNavigation } from "@react-navigation/native";
 
 
 const Pk = () => {
+
+  const navigation = useNavigation();
+
   const [formValues, setFormValues] = useState({
     alamat: "",
     nomorTelpon: "",
@@ -83,8 +87,10 @@ const Pk = () => {
   };
 
 
+
   return (
     <>
+    
       <Center flex={0.6}>
         <Image
           size="xl"
@@ -92,10 +98,18 @@ const Pk = () => {
           source={require("../assets/promax.png")}
           alt="p"
           role="img"
-        />
+        />  
+        <Box position="absolute" top="10" left="10">
+          <TouchableOpacity onPress={() => navigation.navigate('layanan')}>
+          <Image
+            source={require("../assets/backIcon.png")}
+            style={{ width: 34, height: 34, marginBottom:350, marginRight:300}}
+            />
+          </TouchableOpacity>
+        </Box> 
         <Heading mb="$5">Panggilan Tukang</Heading>
 
-        <Box h="$32" w="$72">
+        <Box h="$32" w="$72" position="relative">
           <FormControl mb="$2" size="md" isRequired={true}>
             <FormControlLabel mb="$1">
               <FormControlLabelText>Alamat</FormControlLabelText>
@@ -163,10 +177,13 @@ const Pk = () => {
                   <SelectItem label="Tukang Kayu" value="Tukang Kayu" />
                   <SelectItem label="Tukang Keramik" value="Tukang Keramik" />
                   <SelectItem label="Tukang Las" value="Tukang Las" />
+                  <SelectItem label="Tukang Residential" value="Tukang Residential" />
                 </SelectContent>
               </SelectPortal>
             </Select>
           </FormControl>
+
+                 
 
           <Text size={40}>Beri Detail Pesanan Layanan</Text>
           <FormControl mb="$5" size="md">
@@ -191,7 +208,9 @@ const Pk = () => {
           >
             <Text>Submit</Text>
           </Button>
+          
         </Box>
+        
       </Center>
     </>
   );

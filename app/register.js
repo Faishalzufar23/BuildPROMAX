@@ -89,7 +89,7 @@ const register = () => {
                   onChangeText={(nama) => setNama(nama)} />
               </Input>
             </VStack>
-            <VStack space="xs">
+            <VStack space="xl">
               <Text color="$text500" lineHeight="$xs">
                 Email:
               </Text>
