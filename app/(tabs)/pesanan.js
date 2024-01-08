@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Button, StyleSheet, RefreshControl } from 'react-native';
+import { View, Text, FlatList, Button, StyleSheet, RefreshControl, TouchableOpacity} from 'react-native';
 import { getNote, deleteNote } from '../../actions/AuthAction';
+import { AntDesign } from '@expo/vector-icons'; 
 
 const Pesanan = () => {
   const [pesanan, setPesanan] = useState([]);
@@ -13,8 +14,8 @@ const Pesanan = () => {
   const fetchData = async () => {
     setRefreshing(true);
     try {
-      const pesanan = await getNote();
-      setPesanan(pesanan);
+      const pesananData = await getNote();
+      setPesanan(pesananData);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -29,6 +30,7 @@ const Pesanan = () => {
       console.error('Error deleting data:', error);
     }
   };
+
 
   return (
     <View style={styles.container}>
@@ -63,10 +65,18 @@ const Pesanan = () => {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={fetchData}
+              tintColor="#689F38"
+              title="Memuat ulang..."
+              titleColor="#689F38"
+              colors={['#9Bd35A', '#689F38']}
+              progressBackgroundColor="#b6b7b2"
             />
           }
         />
       )}
+      <TouchableOpacity style={styles.refreshIcon} onPress={fetchData}>
+        <AntDesign name="reload1" size={34} color="#080808"  />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -75,6 +85,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    justifyContent: 'center', // Pusatkan vertikal
   },
   title: {
     fontSize: 20,
@@ -91,6 +102,14 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: 'bold',
     marginBottom: 8,
+  },
+  refreshIcon: {
+    position: 'absolute',
+    bottom: 16,
+    alignSelf: 'center', // Pusatkan horizontal
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    borderRadius: 50,
+    padding: 8,
   },
 });
 

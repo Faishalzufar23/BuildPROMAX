@@ -28,19 +28,6 @@ export const sendFormData = async (data) => {
 };
 
 
-export const tambahLayanan = async (layananBaru) => {
-  try {
-    await FIREBASE.database()
-      .ref("layanan")
-      .push(layananBaru);
-
-    console.log("Layanan added successfully");
-  } catch (error) {
-    throw error;
-  }
-};
-
-
 export const registerUser = async (data, password) => {
   try {
     const success = await FIREBASE.auth().createUserWithEmailAndPassword(data.email, password);
@@ -181,7 +168,7 @@ export const deleteNote = async (noteId) => {
       return;
     }
 
-    const noteRef = FIREBASE.database().ref(`notes/${userData.uid}/${noteId}`);
+    const noteRef = FIREBASE.database().ref(`pesanan/${userData.uid}/${noteId}`);
     const snapshot = await noteRef.once("value");
     const existingNote = snapshot.val();
 
@@ -197,6 +184,7 @@ export const deleteNote = async (noteId) => {
     throw error;
   }
 };
+
 
 
 export const editProfile = async (uid, updatedData) => {
