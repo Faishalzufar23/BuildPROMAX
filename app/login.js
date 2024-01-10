@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   Heading, FormControl, VStack, Text, Input, InputField, InputSlot, InputIcon,
   ButtonText, showPassword, handleState, EyeIcon, EyeOffIcon, Button, Box, setShowModal,
-  ButtonIcon, Center, View
+  ButtonIcon, Center, View,isAlertVisible
 } from "@gluestack-ui/themed";
 import { useNavigation, Link } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -104,22 +104,14 @@ const Login = () => {
             <Button onPress={Register} action="negative">
               <Text bold color="white">Register</Text>
             </Button>
-
-            {/* <Link style={{ backgroundColor: "black", width: "100%", height: "15%" }} href="/home">
-              <Center>
-                <Text style={{ color: "white", width: "100%", height: "40px", justifyContent: "center" }}>Login</Text>
-              </Center>
-            </Link> */}
-
           </VStack>
-          
-          {/* <Button size="md" variant="solid" action="negative" isDisabled={false} isFocusVisible={false} >
-            <Link href="/register">
-              <ButtonText>Register</ButtonText>
-            </Link>
-            <ButtonIcon />
-          </Button> */}
         </FormControl>
+        {isAlertVisible && (
+          <Alert status="error" onClose={closeAlert}>
+            <Alert.Icon boxSize="5" mr="3" />
+            <Alert.Title flexShrink={1}>{alertMessage}</Alert.Title>
+          </Alert>
+        )}
       </Box>
     </>
   );

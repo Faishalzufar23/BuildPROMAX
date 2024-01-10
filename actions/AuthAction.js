@@ -38,7 +38,7 @@ export const registerUser = async (data, password) => {
     };
 
     await FIREBASE.database()
-      .ref("users/" + success.user.uid)
+      .ref("user/" + success.user.uid)
       .set(dataBaru);
     //Local storage(Async Storage)
     storeData("user", dataBaru);
@@ -52,7 +52,7 @@ export const loginUser = async (email, password) => {
   try { 
     const success = await FIREBASE.auth().signInWithEmailAndPassword(email, password);
     const resDB = await FIREBASE.database()
-      .ref("/users/" + success.user.uid)
+      .ref("/user/" + success.user.uid)
       .once("value");
 
     if (resDB.val()) {
@@ -189,7 +189,7 @@ export const deleteNote = async (noteId) => {
 
 export const editProfile = async (uid, updatedData) => {
   try {
-    const userRef = FIREBASE.database().ref(`users/${uid}`);
+    const userRef = FIREBASE.database().ref(`user/${uid}`);
     const snapshot = await userRef.once("value");
     const existingUser = snapshot.val();
 
